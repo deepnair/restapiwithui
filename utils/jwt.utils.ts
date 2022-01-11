@@ -8,7 +8,7 @@ import log from "./logger"
 const privateKey = config.get<string>("privateKey")
 const publicKey = config.get<string>("publicKey")
 
-export const signJwt = (object:Object, options: jwt.SignOptions | undefined) => {
+export const signJwt = (object:Object, options?: jwt.SignOptions | undefined) => {
     try{
         return jwt.sign(object, privateKey, {...(options && options), algorithm: "RS256"});
     }catch(e:any){

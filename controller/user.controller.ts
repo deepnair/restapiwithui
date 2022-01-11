@@ -13,7 +13,7 @@ const createUserHandler = async (req: Request<{}, {}, UserInput>, res: Response)
         }
     }catch(e:any){
         log.error('Error in controller')
-        res.status(403).send(`Error is: ${e}`)
+        res.status(400).send(`Error is: ${e}`)
     }
 }
 

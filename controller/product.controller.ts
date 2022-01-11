@@ -18,11 +18,15 @@ export type BodyInput = {
 
 export const createProductHandler = async (req: Request<{}, {}, BodyInput>, res: Response) => {
     try{
+        // log.info('Product controller ran')
         const userId = res.locals.user._id
+        // log.info(userId)
         const body = req.body
         const product = await createProduct({...body, user: userId})
         res.send(product)
     }catch(e:any){
+        log.info('Error in product controller is')
+        log.info(e)
         res.status(400).send(`There was an error: ${e}`)
     }
 
