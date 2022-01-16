@@ -24,6 +24,24 @@ export const createUserSessionHandler = async (req: Request, res: Response) => {
         const refreshToken = signJwt({...user, session: session._id}, {expiresIn: config.get<string>("refreshTokenTtl")})
         // log.info(`Access and refresh tokens have been created successfully and they are: ${accessToken} and ${refreshToken}`)
         //send them both back
+        res.cookie("accessToken", accessToken, {
+            maxAge: 900000,
+            httpOnly: true,
+            domain: config.get<string>("domain"),
+            path: '/',
+            sameSite: 'strict',
+            secure: config.get<boolean>("secure")
+        })
+
+        res.cookie("refreshToken", refreshToken, {
+            maxAge: 3.516e10,
+            httpOnly: true,
+            domain: config.get<string>("domain"),
+            path: '/',
+            sameSite: 'strict',
+            secure: config.get<boolean>("secure")
+        })
+
         return res.send({accessToken, refreshToken});
         }
     }

@@ -17,4 +17,8 @@ const createUserHandler = async (req: Request<{}, {}, UserInput>, res: Response)
     }
 }
 
+export const getCurrentUser = (req: Request, res: Response) => {
+    return res.send(res.locals.user)
+}
+
 export default createUserHandler;

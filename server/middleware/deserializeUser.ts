@@ -3,12 +3,14 @@ import {Request, Response, NextFunction} from "express"
 import {verifyJwt} from "../utils/jwt.utils"
 import { reissueAccessToken } from "../service/session.service"
 import log from "../utils/logger"
+import config from "config"
 
 const deserializeUser = async (req: Request, res: Response, next: NextFunction) => {
-    const accessToken = get(req, "headers.authorization", "").replace(/Bearer\s/, "");
+    const accessToken = get(req, "cookies.accessToken") || get(req, "headers.authorization", "").replace(/Bearer\s/, "");
     
-    const refreshToken = get(req, "headers.x-refresh", "");
-    
+    const refreshToken = get(req, "cookies.refreshToken") || get(req, "headers.x-refresh", "");
+    log.info(accessToken);
+    log.info(refreshToken);
     if(!accessToken){
         return next()
     }
@@ -28,6 +30,14 @@ const deserializeUser = async (req: Request, res: Response, next: NextFunction) 
         const newAccessToken = await reissueAccessToken({refreshToken})
         log.info(`New access Token was generated and it is ${newAccessToken}`)
         if(newAccessToken){
+            res.cookie("accessToken", newAccessToken, {
+                maxAge: 900000,
+                httpOnly: true,
+                domain: config.get<string>("domain"),
+                path: '/',
+                sameSite: 'strict',
+                secure: config.get<boolean>("secure")
+            })
             res.setHeader("x-access-token", newAccessToken);
             const {decoded} = verifyJwt(newAccessToken);
             res.locals.user = decoded;

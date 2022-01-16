@@ -1,7 +1,7 @@
 import {Express, Request, Response} from "express"
 import { createProductHandler, deleteProductHandler, getProductHandler, updateProductHandler } from "./controller/product.controller";
 import { createUserSessionHandler, deleteSessionsHandler, getSessionsHandler } from "./controller/session.controller";
-import createUserHandler from "./controller/user.controller";
+import createUserHandler, { getCurrentUser } from "./controller/user.controller";
 import requireUser from "./middleware/requireUser";
 import validateResource from "./middleware/validateResource"
 import { createProductSchema, deleteProductSchema, getProductSchema, updateProductSchema } from "./schema/product.schema";
@@ -18,6 +18,8 @@ const routes = (app: Express) => {
     app.route("/api/v1/product").post([requireUser, validateResource(createProductSchema)], createProductHandler)
 
     app.route("/api/v1/product/:productId").get(validateResource(getProductSchema), getProductHandler).patch([requireUser, validateResource(updateProductSchema)], updateProductHandler).delete([requireUser, validateResource(deleteProductSchema)], deleteProductHandler);
+
+    app.route("/api/v1/me").get(requireUser, getCurrentUser);
     
 }
 
