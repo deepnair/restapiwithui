@@ -42,7 +42,7 @@ ___
 1. For this you can literally copy over the exact same code as the register.tsx. There will just be a few minor changes.
 1. Instead of the createUserSchema we will use the sessionSchema and make the exact same kind of nonempty() adjustment from the previous required_error setup. 
 1. We will change the type to CreateSessionInput.
-1. We will change the states and setState to loginError and setLoginError and we will make the corresponding change to the frist \<p> tag within the return of the react functional component. 
+1. We will change the states and setState to loginError and setLoginError and we will make the corresponding change to the first \<p> tag within the return of the react functional component. 
 1. We will also rename the react functional component to LoginPage and make the change to the export as well using Ctrl + D.
 1. We will add a {withCredentials: true} as options at the end of the axios.post request because we will actually get credentials when we login. 
 1. This will push to the "/" after the login is complete.
