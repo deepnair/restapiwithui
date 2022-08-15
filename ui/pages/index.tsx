@@ -24,7 +24,7 @@ const Home: NextPage<{fallbackData: LocalsUser}> = ({fallbackData}) => {
   // console.log(data);
   return (
     <>
-      {data?<p>Welcome {data.name}</p>:<p>Please login <Link href="/auth/login"><a>Here</a></Link> to acess this page</p>}
+      {data?<p>Welcome {data.name}</p>:<p>Please login <Link href="/auth/login"><a>Here</a></Link> to access this page</p>}
     </>
   )
 }
