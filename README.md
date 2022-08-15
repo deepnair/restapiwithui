@@ -59,7 +59,7 @@ ___
 1. Do the same with refreshToken. Be careful to type "cookies" rather than "cookie". The latter will not work.
 1. In the (expired && refreshToken) bit where a newAcessToken is being issued, res.cookie("accessToken", newAccessToken, {}). Where the properties in the object will be maxAge: 900000 (15 minutes in millisends), httpOnly: true, domain: config.get\<string>("domain"), path: "/", sameSite: 'strict', secure: config.get\<boolean>("secure"). At the time of production both the domain and the boolean ought to be changed. When testing the secure will be false because testing on your local machine using localhost doesn't require ssl so is not secure. We are making the cookie httpOnly so it isn't accessible by javascript but only by http requests.
 1. Make the same res.cookie change to the createSessionHandler in session.controller.ts which is in the controller folder for both accessToken and refreshToken. The refreshToken maxAge will be 3.516e10 which is 1 year in milliseconds.
-1. Finally also create a route for gettin the user data on login with a Handler called getCurrentUserHandler which simply returns res.send(res.locals.user) which should have been put there by deserializeUser. In the routes, put this at a GET endpoint at the address "/api/v1/me". Be sure to use the requireUser middleware for this.
+1. Finally also create a route for getting the user data on login with a Handler called getCurrentUserHandler which simply returns res.send(res.locals.user) which should have been put there by deserializeUser. In the routes, put this at a GET endpoint at the address "/api/v1/me". Be sure to use the requireUser middleware for this.
 
 ### fetcher.ts
 ___
