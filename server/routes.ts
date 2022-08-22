@@ -13,7 +13,7 @@ const routes = (app: Express) => {
 
     app.route("/api/v1/user").post(validateResource(createUserSchema), createUserHandler)
 
-    app.route("/api/v1/sessions").post(validateResource(createSessionSchema), createUserSessionHandler).get(requireUser, getSessionsHandler).delete(requireUser, deleteSessionsHandler);
+    app.route("/api/v1/sessions").post(validateResource(createSessionSchema), createUserSessionHandler).get(requireUser, getSessionsHandler).patch(requireUser, deleteSessionsHandler);
 
     app.route("/api/v1/product").post([requireUser, validateResource(createProductSchema)], createProductHandler)
 
