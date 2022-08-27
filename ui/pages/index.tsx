@@ -8,8 +8,8 @@ interface LocalsUser{
   name: string,
   email: string,
   createdAt: Date,
-  updatedAt: Date
-  _v: number
+  updatedAt: Date,
+  _v: number,
   iat: string,
   exp: number
 }
