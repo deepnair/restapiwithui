@@ -4,7 +4,7 @@ import useSwr from "swr"
 import fetcher from '../utils/fetcher'
 
 interface LocalsUser{
-  _id: string
+  _id: string,
   name: string,
   email: string,
   createdAt: Date,
